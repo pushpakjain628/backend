@@ -1,24 +1,18 @@
 package com.backend.project.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Table
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties
-public class User {
+public class Post {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,15 +20,19 @@ public class User {
     private int id;
 
     @Column
-    private String name;
+    private String title;
 
     @Column
-    private String emailId;
+    private String content;
 
-    @Column
-    private String mobileNumber;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Post> posts;
+
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private List<Comments> comments = new ArrayList<>();
+
 
 }
