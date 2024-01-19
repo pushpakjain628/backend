@@ -1,13 +1,41 @@
 <configuration>
+
+    <!-- Console Appender for Logging to Console (Optional) -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                {"timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}", "logtype": "%level", "thread": "%thread", "class": "%logger{0}","methodname": "%M", "message": "%msg","traceId":"%X{traceId}", "event": "%X{event}", "stacktrace": "%ex"}%n
+                {"timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}", "logtype": "%level", "thread": "%thread", "class": "%logger{0}", "methodname": "%M", "message": "%msg","traceId":"%X{traceId}", "event": "%X{event}", "stacktrace": "%ex"}%n
             </pattern>
         </encoder>
     </appender>
 
-    <root level="info">
-        <appender-ref ref="STDOUT" />
+    <!-- Splunk Appender for Sending Logs to Splunk HEC -->
+    <appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>http://localhost:8088</url>
+        <token>5bbed0a3-9626-4f91-875d-fe3d81760c3e</token>
+        <index>backend</index>
+        <sourcetype>log4j</sourcetype>
+        <source>backend-http-logs</source>
+        <batch_interval>5000</batch_interval>
+
+        <!-- Optional: SSL Configuration (if Splunk is using HTTPS) -->
+        <!--<ssl>
+            <keystorePath>/path/to/your/keystore.jks</keystorePath>
+            <keystorePassword>your-keystore-password</keystorePassword>
+            <keystoreType>JKS</keystoreType>
+        </ssl>-->
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                {"timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}", "logtype": "%level", "thread": "%thread", "class": "%logger{0}","methodname": "%M", "message": "%msg","traceId":"%X{traceId}", "event": "%X{event}", "stacktrace": "%ex"}%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!-- Root Logger Configuration -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" /> <!-- Optional: Console Appender -->
+        <appender-ref ref="SPLUNK" /> <!-- Splunk Appender -->
     </root>
+
 </configuration>
