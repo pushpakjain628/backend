@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomBanner implements Banner {
 
-
-
-
     @Override
     public void printBanner(Environment environment, Class<?> sourceClass, java.io.PrintStream out) {
         // Generate dynamic banner text

@@ -22,11 +22,16 @@ public class CustomHeaderFilter  extends OncePerRequestFilter  {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         HttpServletResponse httpServletResponse = response;
         // Check if the header has already been set
+        String traceId;
+
         if (httpServletResponse.getHeader("x-trace-id") == null) {
-            String traceId = UUID.randomUUID().toString();
-            MDC.put("traceId", traceId);
-            httpServletResponse.addHeader("x-trace-id", traceId);
+             traceId = UUID.randomUUID().toString();
+        }else{
+             traceId = httpServletResponse.getHeader("x-trace-id");
         }
+
+        MDC.put("traceId", traceId);
+        httpServletResponse.addHeader("x-trace-id", traceId);
 
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(httpServletResponse);
