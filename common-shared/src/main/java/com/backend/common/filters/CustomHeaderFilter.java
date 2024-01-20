@@ -26,12 +26,13 @@ public class CustomHeaderFilter  extends OncePerRequestFilter  {
 
         if (httpServletResponse.getHeader("x-trace-id") == null) {
              traceId = UUID.randomUUID().toString();
+            httpServletResponse.addHeader("x-trace-id", traceId);
         }else{
              traceId = httpServletResponse.getHeader("x-trace-id");
         }
 
         MDC.put("traceId", traceId);
-        httpServletResponse.addHeader("x-trace-id", traceId);
+
 
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(httpServletResponse);

@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Collections;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -23,7 +25,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public RestTemplate restTemplate(){
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setInterceptors(Collections.singletonList(new TraceIdInterceptor()));
+        return restTemplate;
     }
 
     @Bean
