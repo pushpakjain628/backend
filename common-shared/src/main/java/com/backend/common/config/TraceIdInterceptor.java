@@ -5,6 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -16,7 +22,7 @@ import static com.backend.common.utility.HttpUtils.getStringValue;
 
 @Component
 @Slf4j
-public class TraceIdInterceptor implements HandlerInterceptor {
+public class TraceIdInterceptor implements HandlerInterceptor, ClientHttpRequestInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // Generate a new traceId for each incoming request
@@ -55,5 +61,17 @@ public class TraceIdInterceptor implements HandlerInterceptor {
     }
 
 
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        // Retrieve traceId from MDC
+        String traceId = MDC.get("traceId");
+
+        // Add traceId to the HTTP headers
+        HttpHeaders headers = request.getHeaders();
+        headers.add("traceId", traceId);
+
+        // Continue with the execution of the request
+        return execution.execute(request, body);
+    }
 }
 

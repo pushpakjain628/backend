@@ -20,8 +20,12 @@ public class BookTicketController {
 
     @GetMapping("/bookmyshow")
     public String paymentService(){
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:8089/payment",String.class);
-        return responseEntity.getBody();
+        log.info("Book my Show service method called");
+        log.info("External Service is calling");
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:8087/payment",String.class);
+        String response = responseEntity.getBody();
+        log.info("Response Data: {}",response);
+        return response;
     }
 
     @GetMapping("/book")
