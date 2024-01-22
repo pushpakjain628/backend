@@ -15,10 +15,12 @@
   </properties>
 
   <modules>
+
+    <module>common-shared</module>
     <module>bookmyshow</module>
     <module>core</module>
     <module>payment</module>
-    <module>common-shared</module>
+    <module>generate-tickets</module>
   </modules>
 
 
