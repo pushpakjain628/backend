@@ -14,9 +14,9 @@
     <name>common-shared</name>
     <url>http://maven.apache.org</url>
 
-    <configurationProperty>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </configurationProperty>
+    </properties>
 
     <dependencies>
         <dependency>

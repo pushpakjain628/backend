@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/../backend-utility/pom.xml" />
         <option value="$PROJECT_DIR$/../config-server/pom.xml" />
         <option value="$PROJECT_DIR$/core/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/bookmyshow/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
