@@ -10,15 +10,17 @@
   <name>Backend</name>
   <url>http://maven.apache.org</url>
 
-  <properties>
+  <configurationProperty>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  </configurationProperty>
 
   <modules>
+
+    <module>common-shared</module>
     <module>bookmyshow</module>
     <module>core</module>
     <module>payment</module>
-    <module>common-shared</module>
+    <module>generate-tickets</module>
   </modules>
 
 

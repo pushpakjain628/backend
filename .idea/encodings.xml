@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../backend-utility/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../backend-utility/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bookmyshow/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bookmyshow/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-shared/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-shared/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core/config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/generate-tickets/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/generate-tickets/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

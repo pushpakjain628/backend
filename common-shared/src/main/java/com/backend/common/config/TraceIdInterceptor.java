@@ -20,9 +20,14 @@ public class TraceIdInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // Generate a new traceId for each incoming request
+        String requestBody = "";
+        if (request instanceof ContentCachingRequestWrapper) {
+            requestBody = getStringValue(((ContentCachingRequestWrapper) request).getContentAsByteArray() ,
+                    request.getCharacterEncoding());
+        }else {
+            System.out.println(request);
+        }
 
-        String requestBody = getStringValue(((ContentCachingRequestWrapper) request).getContentAsByteArray(),
-                request.getCharacterEncoding());
         MDC.put("event", Events.REQUEST.name());
         MDC.put("REQUESTPAYLOAD",requestBody);
 
@@ -38,8 +43,12 @@ public class TraceIdInterceptor implements HandlerInterceptor {
         MDC.put("event", Events.RESPONSE.name());
         // Wrap the response to capture the response body
         try {
-            String responseBody = getStringValue(((ContentCachingResponseWrapper) response).getContentAsByteArray(),
-                    response.getCharacterEncoding());
+            String responseBody = "";
+            if (request instanceof ContentCachingRequestWrapper) {
+                 responseBody = getStringValue(((ContentCachingResponseWrapper) response).getContentAsByteArray(),
+                        response.getCharacterEncoding());
+            }
+
             MDC.put("RESPONSEPAYLOAD",responseBody);
             log.info(
                     "PROCESSING COMPLETED : METHOD={}; REQUESTURI={}; RESPONSEPAYLOAD={} RESPONSECODE={};",
